@@ -3,6 +3,9 @@
 out/
 staticfiles/
 
+# Media files
+media/
+media
 # Models
 pretrained_models/
 
