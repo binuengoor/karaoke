@@ -11,6 +11,8 @@ x-celery-env: &celery-env
   - AWS_SECRET_ACCESS_KEY
   - AWS_STORAGE_BUCKET_NAME
   - AWS_S3_CUSTOM_DOMAIN
+  - AWS_S3_REGION_NAME
+  - AWS_S3_SIGNATURE_VERSION
   - AZURE_ACCOUNT_KEY
   - AZURE_ACCOUNT_NAME
   - AZURE_CONTAINER
@@ -34,6 +36,7 @@ services:
       - staticfiles:/webapp/staticfiles
     environment:
       - API_HOST=api
+      - CERTBOT_CERT_NAME=spleeter-web
       - CERTBOT_DOMAIN=.
       - CERTBOT_EMAIL=. # Dummy email (overridden by https.yml)
       - UPLOAD_FILE_SIZE_LIMIT=${UPLOAD_FILE_SIZE_LIMIT:-100}
@@ -62,6 +65,8 @@ services:
       - AWS_SECRET_ACCESS_KEY
       - AWS_STORAGE_BUCKET_NAME
       - AWS_S3_CUSTOM_DOMAIN
+      - AWS_S3_REGION_NAME
+      - AWS_S3_SIGNATURE_VERSION
       - AZURE_ACCOUNT_KEY
       - AZURE_ACCOUNT_NAME
       - AZURE_CONTAINER

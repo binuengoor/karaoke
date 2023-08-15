@@ -279,7 +279,7 @@ class YTSourceTrackView(generics.CreateAPIView):
 
         try:
             # Kick off download task in background
-            result = fetch_youtube_audio.delay(source_file.id, fetch_task.id,
+            result = fetch_youtube_audio.delay(str(source_file.id), str(fetch_task.id),
                                                data['artist'], data['title'],
                                                data['youtube_link'])
             # Set the celery task ID in the model
@@ -336,7 +336,7 @@ class DynamicMixCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         # Kick off task in background
-        result = create_dynamic_mix.delay(instance.id)
+        result = create_dynamic_mix.delay(str(instance.id))
         # Set the celery task ID in the model
         DynamicMix.objects.filter(id=instance.id).update(celery_id=result.id)
 
@@ -408,7 +408,7 @@ class StaticMixCreateView(generics.ListCreateAPIView):
     def perform_create(self, serializer):
         instance = serializer.save()
         # Kick off separation task in background
-        result = create_static_mix.delay(instance.id)
+        result = create_static_mix.delay(str(instance.id))
         # Set the celery task ID in the model
         StaticMix.objects.filter(id=instance.id).update(celery_id=result.id)
 
